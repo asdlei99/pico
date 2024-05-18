@@ -14,7 +14,7 @@ type RouteFixture struct {
 
 func TestCalcRoutes(t *testing.T) {
 	fixtures := []RouteFixture{
-		/* {
+		{
 			Name:   "basic-index",
 			Actual: calcRoutes("test", "/index.html", []*RedirectRule{}),
 			Expected: []*HttpReply{
@@ -140,8 +140,6 @@ func TestCalcRoutes(t *testing.T) {
 				{Filepath: "test/tester1", Status: 200},
 				{Filepath: "test/tester1.html", Status: 200},
 				{Filepath: "https://pico.sh", Status: 301},
-				{Filepath: "/tester1/", Status: 301},
-				{Filepath: "test/404.html", Status: 404},
 			},
 		},
 		{
@@ -211,8 +209,6 @@ func TestCalcRoutes(t *testing.T) {
 			Expected: []*HttpReply{
 				{Filepath: "test/wow.html", Status: 200},
 				{Filepath: "https://pico.sh", Status: 301},
-				{Filepath: "/wow.html/", Status: 301},
-				{Filepath: "test/404.html", Status: 404},
 			},
 		},
 		{
@@ -232,8 +228,6 @@ func TestCalcRoutes(t *testing.T) {
 				{Filepath: "test/wow", Status: 200},
 				{Filepath: "test/wow.html", Status: 200},
 				{Filepath: "https://pico.sh", Status: 301},
-				{Filepath: "/wow/", Status: 301},
-				{Filepath: "test/404.html", Status: 404},
 			},
 		},
 		{
@@ -352,7 +346,7 @@ func TestCalcRoutes(t *testing.T) {
 				{Filepath: "/space.nvim/", Status: 301},
 				{Filepath: "public/404.html", Status: 404},
 			},
-		}, */
+		},
 		{
 			Name: "redirect-to-another-pgs-site",
 			Actual: calcRoutes(
@@ -371,15 +365,15 @@ func TestCalcRoutes(t *testing.T) {
 				{Filepath: "https://my-other-site.pgs.sh/index.html", Status: 200},
 			},
 		},
-		/* {
+		{
 			Name: "redirect-placeholders",
 			Actual: calcRoutes(
 				"public",
 				"/news/02/12/2004/my-story",
 				[]*RedirectRule{
 					{
-						From:   "/news/:month/:date/:year/:slug",
-						To:     "/blog/:year/:month/:date/:slug",
+						From:   "/news/:month/:date/:year/*",
+						To:     "/blog/:year/:month/:date/:splat",
 						Status: 200,
 					},
 				},
@@ -392,7 +386,7 @@ func TestCalcRoutes(t *testing.T) {
 				{Filepath: "/blog/2004/02/12/my-story/", Status: 301},
 				{Filepath: "public/404.html", Status: 404},
 			},
-		}, */
+		},
 	}
 
 	for _, fixture := range fixtures {
